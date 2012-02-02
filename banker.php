@@ -2,6 +2,6 @@
 
 class Banker extends Player {
 
-	public $id   = 1;
-	public $name = 'Banker';
+	public static $id   = 1;
+	public static $name = 'Banker';
 }

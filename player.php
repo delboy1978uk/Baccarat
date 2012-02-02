@@ -2,9 +2,8 @@
 
 class Player {
 
-	public  $id   = 0;
-	public  $name = 'Player';
-
+	public    static $id   = 0;
+	public    static $name = 'Player';
 	protected static $instance;
 
 	public static function enter()
@@ -17,6 +16,6 @@ class Player {
 
 	public function __toString()
 	{
-		return $this->name;
+		return static::$name;
 	}
 }

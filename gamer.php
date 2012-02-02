@@ -31,6 +31,7 @@ class Gamer {
 
 	public function move_stay()
 	{
+		debug('  Stay on this side');
 		return $this->position;
 	}
 
@@ -39,6 +40,8 @@ class Gamer {
 		$this->position = ($this->position === Table::PLAYER_SIDE)
 			? Table::BANKER_SIDE
 			: Table::PLAYER_SIDE;
+
+		debug('  Switch to ['.($this->position === Table::PLAYER_SIDE ? 'player' : 'banker').'] side.');
 
 		return $this->position;
 	}

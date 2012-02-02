@@ -18,19 +18,29 @@ class Pattern {
 
 	public function reset()
 	{
+		debug('  Reset pattern');
 		$this->position = 0;
 		$this->depth    = 1;
 	}
 
 	public function current()
 	{
+		// Reset pattern if maximum is reached????
+		if(!isset($this->pattern[$this->position]))
+		{
+			$this->position = 0;
+		}
+
 		return (int) $this->pattern[$this->position];
 	}
 
 	public function advance()
 	{
+		debug('  Advance pattern');
+		$return = $this->current();
 		++$this->position;
 		++$this->depth;
-		return $this->current();
+		return $return;
+		
 	}
 }
