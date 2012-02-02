@@ -32,7 +32,7 @@ class Gamer {
 	public function move_stay()
 	{
 		debug('  Stay on this side');
-		return $this->position;
+		return Pattern::MOVE_STAY;
 	}
 
 	public function move_switch()
@@ -43,6 +43,6 @@ class Gamer {
 
 		debug('  Switch to ['.($this->position === Table::PLAYER_SIDE ? 'player' : 'banker').'] side.');
 
-		return $this->position;
+		return Pattern::MOVE_SWITCH;
 	}
 }

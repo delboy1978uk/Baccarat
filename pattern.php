@@ -41,6 +41,13 @@ class Pattern {
 		++$this->position;
 		++$this->depth;
 		return $return;
-		
+	}
+
+	public function __toString()
+	{
+		$string = implode(' - ', $this->pattern);
+		$repl   = array('0' => 'Stay', '1' => 'Switch');
+
+		return str_replace(array_keys($repl), array_values($repl), $string);
 	}
 }

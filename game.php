@@ -2,9 +2,10 @@
 
 class Game {
 
-	protected $results = array();
-	protected $shoe    = 0;
-	protected $length  = 0;
+	protected $results  = array();
+	protected $shoe     = 0;
+	protected $length   = 0;
+	protected $position = 0;
 	protected $player;
 	protected $banker;
 	protected $gamer;
@@ -19,27 +20,37 @@ class Game {
 		debug('Resetting game');
 		$this->results = str_split($results);
 		$this->length  = count($this->results);
+		
+		return $this;
 	}
 
-	public function play(Gamer $gamer)
+	public function setup(Gamer $gamer)
 	{
 		debug('Start Game');
 		$this->player === null and $this->player = Player::enter();
 		$this->banker === null and $this->banker = Banker::enter();
 		$this->gamer  = $gamer;
-		$outcome      = array();
+		debug('Pattern: ' . $gamer->pattern);
+		
+		return $this;
+	}
+
+	public function play()
+	{
+		$outcome = array();
 
 		foreach($this->results as $s => $winner)
 		{
 			debug('Shoe ['.($s+1).'] start');
 			$shoe      = new Shoe($winner);
-			$win       = (bool) $shoe->winner == $gamer->position;
-			$depth     = $gamer->pattern->depth;
-			$outcome []= new Outcome($win, $depth, $shoe->winner);
+			$win       = $shoe->winner == $this->gamer->position;
+			$depth     = $this->gamer->pattern->depth;
 
-			debug('  Gamer ' . ($win ? 'wins' : 'loses'));
+			debug('  ' . ($shoe->winner === Table::PLAYER_SIDE ? 'Player' : 'Banker') . ' side wins');
+			debug('  Gamer ' . ($win ? 'wins' : 'loses') . ' bet');
 
-			$this->gamer->decide_move($shoe);
+			$action    = $this->gamer->decide_move($shoe);
+			$outcome []= new Outcome($win, $depth, $shoe->winner, $action);
 		}
 
 		debug('End Game');

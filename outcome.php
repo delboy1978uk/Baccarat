@@ -2,19 +2,16 @@
 
 class Outcome {
 
-	public $win;
-	public $count;
-	public $side;
+	public $w; // Win
+	public $c; // Count
+	public $s; // Side
+	public $a; // Action
 
-	public function __construct($win, $count, $side)
+	public function __construct($win, $count, $side, $action)
 	{
-		$this->win   = (bool) $win;
-		$this->count = $count;
-		$this->side  = $side;
-	}
-
-	public function __toString()
-	{
-		return (bool) $this->win ? 'winner' : 'loser';
+		$this->w = (int) $win;
+		$this->c = $count;
+		$this->s = $side;
+		$this->a = $action;
 	}
 }
